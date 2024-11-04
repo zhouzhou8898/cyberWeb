@@ -1,101 +1,66 @@
-import Image from "next/image";
+'use client';
+
+import dynamic from 'next/dynamic';
+
+const Scene = dynamic(() => import('@/components/Scene'));
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      <section className='bg-black h-screen w-screen pt-[6vh]'>
+        <Scene />
+        <div
+          className='flex flex-col items-center justify-center text-center gap-20 h-full w-full'
+          style={{
+            fontFamily: 'Noto Sans SC, serif',
+          }}
+        >
+          <div className='text-white flex flex-col z-5 gap-14'>
+            <div className='flex flex-row font-bold text-[185px] gap-[8vw]'>
+              <h1 className=''>跨越边界</h1>
+              <h1 className=''>数字未来</h1>
+            </div>
+            <div className='flex flex-col gap-5'>
+              <p className='font-semibold text-2xl text-left'>
+                无界数字艺术工作室
+              </p>
+              <p className='font-medium text-2xl text-left'>
+                InfiniteBd Studio
+              </p>
+            </div>
+          </div>
+          <div className='w-full h-1/6 flex flex-row justify-between px-14 py-6 absolute bottom-0 bg-yellow-500 bg-opacity-75'>
+            <p className='w-[20vw] text-left text-white font-serif font-medium text-lg leading-9'>
+              专注于创造创新和引人入胜的数字艺术作品，融合科技与创意，探索全新的表达方式,致力于推动数字艺术的界限
+            </p>
+            <p className='w-[20vw] right-0 text-white text-left font-serif font-medium text-lg leading-9'>
+              无论是沉浸式体验、互动装置还是游戏设计，我们都旨在通过独特的视角和叙事手法，让每一件作品都能引发深思和情感共鸣
+            </p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </section>
+
+      <section className='bg-black h-screen w-screen flex flex-row'>
+        <div
+          className=' w-full h-full flex flex-col items-center justify-center text-center ml-16 gap-10'
+          style={{
+            fontFamily: 'Noto Sans SC, serif',
+          }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <div className='text-white flex flex-col z-50 gap-14'>
+            <div className='flex flex-col font-bold text-[150px] leading-tight'>
+              <h1 className=''>跨越边界</h1>
+              <h1 className=''>创新未来</h1>
+            </div>
+            <p className='font-semibold text-2xl'>
+              颠覆传统的智能机器人解决方案
+            </p>
+          </div>
+          <button className='bg-white px-5 py-2 mt-8 font-semibold z-50'>
+            了解更多
+          </button>
+        </div>
+      </section>
+    </>
   );
 }
