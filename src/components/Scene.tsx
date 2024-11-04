@@ -4,17 +4,17 @@ import React, { Suspense, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import {
   Environment,
   useProgress,
   Html,
-  ScrollControls,
   Float,
   Clouds,
   Cloud,
+  OrbitControls,
 } from '@react-three/drei';
-import Model from './Model';
+import FloatingModel from './FloatingModel';
 import { Group } from 'three';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -27,8 +27,38 @@ function Loader() {
 }
 
 export default function Scene({}: Props) {
-  const FLOAT_SPEED = 1.5;
   const modelRef = useRef<Group>(null);
+
+  useGSAP(() => {
+    if (!modelRef.current) return;
+
+    gsap.set(modelRef.current?.position, { x: 100 });
+    gsap.set(modelRef.current?.rotation, { y: 0 });
+    gsap.set(modelRef.current?.scale, { x: 1, y: 1, z: 1 });
+
+    // const introTl = gsap.timeline({
+    //   defaults: {
+    //     duration: 3,
+    //     ease: 'back.out(1.4)',
+    //   },
+    // });
+
+    const scrollTl = gsap.timeline({
+      defaults: { duration: 2 },
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1.5,
+      },
+    });
+
+    scrollTl
+      .to(modelRef.current.position, { x: -200, y: -100 }, 0)
+      .to(modelRef.current.scale, { x: 1.5, y: 1.5, z: 1.5 }, 0)
+      .to(modelRef.current.rotation, { y: Math.PI }, 0);
+  });
+
   return (
     <Canvas
       style={{
@@ -42,18 +72,13 @@ export default function Scene({}: Props) {
       }}
       dpr={[1, 1.5]}
       gl={{ antialias: true }}
+      camera={{ position: [100, 0, -400] }}
     >
       {/* MODEL */}
-      <Float
-        speed={2}
-        rotationIntensity={0.2}
-        floatIntensity={0.5}
-        floatingRange={[-0.002, 0.002]}
-      >
-        <Suspense fallback={<Loader />}>
-          <Model />
-        </Suspense>
-      </Float>
+
+      <Suspense fallback={<Loader />}>
+        <FloatingModel ref={modelRef} />
+      </Suspense>
 
       {/* CLOUD */}
       <Float
@@ -68,20 +93,21 @@ export default function Scene({}: Props) {
             seed={2}
             color='#ffffff'
             opacity={0.3}
+            position={[0, 0, -50]}
+            scale={[100, 100, 100]}
           />
         </Clouds>
       </Float>
 
       <ambientLight
-        intensity={3}
+        intensity={1}
         color='#ffffff'
       />
       <Environment
         files='/hdr/lampstudio.hdr'
-        environmentIntensity={1}
+        environmentIntensity={0.6}
         environmentRotation={[1, 1, 1]}
       />
     </Canvas>
   );
-  //   <FloatingGirl floatSpeed={FLOAT_SPEED} />;
 }

@@ -1,3 +1,5 @@
+'use client';
+
 import { useAnimations, useGLTF, useScroll } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
@@ -6,7 +8,9 @@ import { useThree } from '@react-three/fiber';
 
 useGLTF.preload('/sculpture.glb');
 
-export default function Model() {
+export type ModelProps = {};
+
+export default function Model({ ...props }: ModelProps) {
   const group = useRef<Group>(null);
   const { camera } = useThree(); // 获取摄像机
   const { nodes, materials, animations, scene } = useGLTF('/sculpture.glb');
@@ -38,9 +42,10 @@ export default function Model() {
 
   return (
     <group
-      ref={group}
-      rotation={[0, 0, 0]}
-      position={[0, -70, -400]}
+      {...props}
+      rotation={[0, Math.PI, 0]}
+      position={[-120, -150, 0]}
+      scale={[1.1, 1.2, 1.2]}
     >
       <primitive object={scene} />
     </group>
