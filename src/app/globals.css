@@ -2,7 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC',
-    'Helvetica Neue', STHeiti, 'Microsoft Yahei', Tahoma, Simsun, sans-serif;
+@font-face {
+  font-family: 'Xiangcui';
+  src: url('../../public/kesong.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.hero-header {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  font-family: 'Xiangcui';
+}
+
+.hero-bottom {
+  font-family: 'Xiangcui';
+}
+.aboutUs,
+.weWish {
+  font-family: 'Xiangcui';
+}
+
+.char {
+  transform: translateY(215px);
+  transition: transform 0.5s;
 }

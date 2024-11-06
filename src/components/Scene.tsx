@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -16,6 +16,8 @@ import {
 } from '@react-three/drei';
 import FloatingModel from './FloatingModel';
 import { Group } from 'three';
+import SplitType from 'split-type';
+import { useStore } from '@/hooks/useStore';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -28,20 +30,34 @@ function Loader() {
 
 export default function Scene({}: Props) {
   const modelRef = useRef<Group>(null);
+  const isReady = useStore((state) => state.isReady);
 
   useGSAP(() => {
     if (!modelRef.current) return;
+
+    isReady();
 
     gsap.set(modelRef.current?.position, { x: 100 });
     gsap.set(modelRef.current?.rotation, { y: 0 });
     gsap.set(modelRef.current?.scale, { x: 1, y: 1, z: 1 });
 
-    // const introTl = gsap.timeline({
-    //   defaults: {
-    //     duration: 3,
-    //     ease: 'back.out(1.4)',
-    //   },
-    // });
+    const text = new SplitType('.hero-header');
+    const introTl = gsap.timeline();
+
+    introTl.to('.char', {
+      y: 0,
+      stagger: 0.05,
+      duration: 0.5,
+    });
+    introTl.fromTo(
+      '.subName',
+      {
+        y: 50,
+        opacity: 0,
+      },
+      { y: 0, opacity: 1, duration: 1, ease: 'power2.out' },
+      '+=0.5'
+    );
 
     const scrollTl = gsap.timeline({
       defaults: { duration: 2 },
